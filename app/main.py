@@ -37,7 +37,7 @@ app.add_middleware(
 # =============================================================================
 # API v1 ROUTERS
 # =============================================================================
-from app.api import auth, students, sessions, institutions, analytics
+from app.api import auth, students, sessions, institutions, analytics, billing, notifications
 from app.routers import dashboard_view, admin_view
 
 # Core API (v1)
@@ -46,6 +46,8 @@ app.include_router(institutions.router, prefix="/api/v1/institutions", tags=["In
 app.include_router(students.router, prefix="/api/v1/students", tags=["Students"])
 app.include_router(sessions.router, prefix="/api/v1/sessions", tags=["Sessions"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytics"])
+app.include_router(billing.router, prefix="/api/v1/billing", tags=["Billing"])
+app.include_router(notifications.router, prefix="/api/v1/notifications", tags=["Notifications"])
 
 # Legacy routes (backward compatibility)
 app.include_router(auth.router, prefix="/auth", tags=["Auth (Legacy)"])
