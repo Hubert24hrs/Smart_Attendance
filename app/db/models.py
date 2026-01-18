@@ -62,7 +62,28 @@ class RawDetection(Base):
     session_id = Column(Integer, ForeignKey("sessions.id"))
     student_id = Column(Integer, ForeignKey("students.id"))
     frame_number = Column(Integer)
-    distance = Column(Float)  # Face distance (lower = better match)
-    is_static = Column(Boolean, default=False)  # Liveness flag
+    distance = Column(Float)
+    is_static = Column(Boolean, default=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
+
+class Course(Base):
+    """Course/Class that students are enrolled in"""
+    __tablename__ = "courses"
+    id = Column(Integer, primary_key=True, index=True)
+    code = Column(String, unique=True, index=True)  # e.g., "MATH101"
+    name = Column(String)
+    teacher_id = Column(Integer, ForeignKey("users.id"))
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    teacher = relationship("User")
+
+# Many-to-many: StudentCourse
+class StudentCourse(Base):
+    """Enrollment: Links students to courses"""
+    __tablename__ = "student_courses"
+    id = Column(Integer, primary_key=True, index=True)
+    student_id = Column(Integer, ForeignKey("students.id"))
+    course_id = Column(Integer, ForeignKey("courses.id"))
+    enrolled_at = Column(DateTime, default=datetime.utcnow)
+
 

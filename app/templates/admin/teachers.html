@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Manage Teachers</h1>
+<p><a href="/admin">← Back to Admin Dashboard</a></p>
+
+<h2>Add New Teacher</h2>
+<form action="/admin/teachers/add" method="post">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Add Teacher</button>
+</form>
+
+<h2>Current Teachers</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Role</th>
+    </tr>
+    {% for teacher in teachers %}
+    <tr>
+        <td>{{ teacher.id }}</td>
+        <td>{{ teacher.username }}</td>
+        <td>{{ teacher.role }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
