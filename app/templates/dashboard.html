@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Teacher Dashboard</h1>
+<p>Welcome, {{ user.username }}</p>
+
+<h2>Enroll New Student</h2>
+<form action="/dashboard/enroll" method="post" enctype="multipart/form-data">
+    <input type="text" name="full_name" placeholder="Full Name" required>
+    <input type="text" name="student_id" placeholder="Student ID" required>
+    <label>Upload 5+ Images:</label>
+    <input type="file" name="files" multiple required>
+    <button type="submit">Enroll Student</button>
+</form>
+
+<h2>Recent Sessions</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Course</th>
+        <th>Start Time</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for session in sessions %}
+    <tr>
+        <td>{{ session.id }}</td>
+        <td>{{ session.course_name }}</td>
+        <td>{{ session.start_time.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ "Active" if session.is_active else "Ended" }}</td>
+        <td><a href="/dashboard/session/{{ session.id }}">View Report</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
