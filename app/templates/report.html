@@ -5,7 +5,12 @@
 <p>Status: {{ "Active" if session.is_active else "Ended" }}</p>
 
 <h3>Attendance List</h3>
-<button onclick="window.print()">Export / Print</button>
+<div style="margin-bottom: 15px;">
+    <a href="/dashboard/session/{{ session.id }}/export"
+        style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">📥
+        Export CSV</a>
+    <button onclick="window.print()" style="margin-left: 10px;">🖨️ Print</button>
+</div>
 <table>
     <tr>
         <th>Student Name</th>
@@ -20,10 +25,10 @@
         <td>{{ log.student.student_id }}</td>
         <td>{{ log.status }}</td>
         <td>{{ log.timestamp.strftime('%H:%M:%S') }}</td>
-        <td>{{ "%.2f"|format(log.confidence_score) }}</td>
+        <td>{{ "%.2f"|format(log.confidence_score) if log.confidence_score else "N/A" }}</td>
     </tr>
     {% endfor %}
 </table>
 
-<a href="/dashboard">Back to Dashboard</a>
+<a href="/dashboard">← Back to Dashboard</a>
 {% endblock %}

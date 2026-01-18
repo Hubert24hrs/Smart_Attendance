@@ -54,3 +54,15 @@ class AttendanceLog(Base):
     
     session = relationship("ClassSession", back_populates="attendance_logs")
     student = relationship("Student", back_populates="attendance_records")
+
+class RawDetection(Base):
+    """Frame-by-frame detection log for N-frame consistency rule"""
+    __tablename__ = "raw_detections"
+    id = Column(Integer, primary_key=True, index=True)
+    session_id = Column(Integer, ForeignKey("sessions.id"))
+    student_id = Column(Integer, ForeignKey("students.id"))
+    frame_number = Column(Integer)
+    distance = Column(Float)  # Face distance (lower = better match)
+    is_static = Column(Boolean, default=False)  # Liveness flag
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
