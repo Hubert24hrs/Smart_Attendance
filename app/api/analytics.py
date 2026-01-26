@@ -2,17 +2,16 @@
 Analytics API - Attendance trends and statistics
 /api/v1/analytics/
 """
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import func
-from typing import List, Optional
+from typing import List
 from datetime import datetime, timedelta
 from pydantic import BaseModel
 
 from app.db.database import get_db
 from app.db.models import (
-    User, Institution, Course, Student, ClassSession, 
-    AttendanceLog, AttendanceStats, UserRole
+    User, Course, Student, ClassSession,
+    AttendanceLog, UserRole
 )
 from app.api.auth import get_current_user
 from app.core.middleware import require_admin_or_above

@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
 from app.db.database import get_db
-from app.db.models import User, Student, Course, StudentCourse, ClassSession, AttendanceLog
+from app.db.models import User, Student, Course, ClassSession
 from app.core.security import get_password_hash
 from app.routers.dashboard_view import get_current_user_from_cookie
 from pathlib import Path

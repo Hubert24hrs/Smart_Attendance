@@ -6,11 +6,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from datetime import datetime, timedelta
-from typing import Optional
 import uuid
 
 from app.db.database import get_db
-from app.db.models import Institution, User, UserRole, SubscriptionTier
+from app.db.models import Institution, User, SubscriptionTier
 from app.api.auth import get_current_user
 from app.core.middleware import require_admin_or_above
 

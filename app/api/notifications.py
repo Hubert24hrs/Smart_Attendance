@@ -10,10 +10,9 @@ from typing import Optional, List
 from enum import Enum
 
 from app.db.database import get_db
-from app.db.models import User, Student, Institution, AttendanceLog, ClassSession
+from app.db.models import User, Student, AttendanceLog
 from app.api.auth import get_current_user
 from app.core.middleware import require_admin_or_above
-from app.services.email_service import EmailService
 
 router = APIRouter()
 

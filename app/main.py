@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
@@ -7,7 +7,7 @@ from app.core.config import settings
 from app.db.database import engine, Base
 
 # IMPORTANT: Import models before create_all
-from app.db import models
+from app.db import models  # noqa: F401
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -37,8 +37,8 @@ app.add_middleware(
 # =============================================================================
 # API v1 ROUTERS
 # =============================================================================
-from app.api import auth, students, sessions, institutions, analytics, billing, notifications
-from app.routers import dashboard_view, admin_view
+from app.api import auth, students, sessions, institutions, analytics, billing, notifications  # noqa: E402
+from app.routers import dashboard_view, admin_view  # noqa: E402
 
 # Core API (v1)
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
