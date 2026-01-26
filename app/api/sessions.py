@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.db.database import get_db
-from app.db.models import ClassSession, AttendanceLog, Student, RawDetection
+from app.db.models import ClassSession, AttendanceLog, RawDetection
 from app.api.auth import get_current_user, User
 from app.services.face_logic import FaceLogic
 from app.core.config import settings

@@ -6,7 +6,6 @@ from app.db.models import Student, FaceEmbedding
 from app.services.face_logic import FaceLogic
 from app.schemas.schemas import StudentResponse
 import pickle
-import numpy as np
 
 router = APIRouter()
 

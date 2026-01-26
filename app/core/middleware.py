@@ -2,10 +2,9 @@
 Tenant Isolation Middleware
 Ensures all database queries are scoped to the current user's institution.
 """
-from fastapi import Request, HTTPException
-from sqlalchemy.orm import Session
+from fastapi import HTTPException
 from typing import Optional
-from app.db.models import User, Institution, UserRole
+from app.db.models import User, UserRole
 
 class TenantContext:
     """Holds the current tenant (institution) context for a request"""

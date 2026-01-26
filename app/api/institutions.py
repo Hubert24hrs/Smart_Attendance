@@ -5,7 +5,7 @@ Institution Management API - SuperAdmin only
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 from app.db.database import get_db
@@ -46,8 +46,7 @@ class InstitutionResponse(BaseModel):
     is_active: bool
     created_at: datetime
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class AdminUserCreate(BaseModel):
     username: str
@@ -191,7 +190,7 @@ def get_institution_stats(
     current_user: User = Depends(get_current_user)
 ):
     """Get institution statistics"""
-    from app.db.models import Student, Course, ClassSession
+    from app.db.models import Student, Course
     
     # Access check
     if current_user.role != UserRole.SUPER_ADMIN.value:
