@@ -1,8 +1,14 @@
+import sys
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
+
+# Inject mock face_recognition before importing app
+import tests.mock_face_recognition
+
+sys.modules["face_recognition"] = tests.mock_face_recognition
 
 from app.db.database import Base, get_db
 from app.main import app
@@ -18,6 +24,7 @@ engine = create_engine(
 
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+
 @pytest.fixture(scope="function")
 def db_session():
     """Create a new database session for a test."""
@@ -29,9 +36,11 @@ def db_session():
         session.close()
         Base.metadata.drop_all(bind=engine)
 
+
 @pytest.fixture(scope="function")
 def client(db_session):
     """Create a TestClient that uses the test database."""
+
     def override_get_db():
         try:
             yield db_session
